@@ -1,0 +1,8 @@
+# 翻译档档名叫 events.yml、zh-TW.yml、en.yml 什么都无所谓，重要的是 YAML 结构中第一层要对应locale的名称，也就是 zh-CN，
+# Rails 会加载 config/locales 下所有的YAML词汇档案
+zh-CN:
+  activerecord:
+    attributes:
+      event:
+        name: "活动名称"
+        description: "描述"
