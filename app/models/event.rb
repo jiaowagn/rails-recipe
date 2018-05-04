@@ -1,14 +1,17 @@
 class Event < ApplicationRecord
   before_validation :generate_friendly_id, :on => :create
 
- validates_presence_of :name
+  # 这里不但要检查必填，还检查了必须唯一，而且格式只限小写英数字及横线。
+  validates_presence_of :name, :friendly_id
+  validates_uniqueness_of :friendly_id
+  validates_format_of :friendly_id, :with => /\A[a-z0-9\-]+\z/
 
- def to_param
+  def to_param
    self.friendly_id
- end
+  end
 
- def generate_friendly_id
+  def generate_friendly_id
    self.friendly_id ||= SecureRandom.uuid
- end
+  end
 
 end
