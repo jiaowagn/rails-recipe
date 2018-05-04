@@ -11,6 +11,10 @@ Rails.application.routes.draw do
 
   get "/faq" => "pages#faq"
 
+  # 这里的路由设计使用单数 resource:user，跟 resources :users 相比，单数的路由少了 index action，并且网址上不会有 ID，
+  # 路由方法也皆为单数不需要参数，例如 user_path、edit_user_path
+  resource :user 
+
   root "events#index"
 
 end
