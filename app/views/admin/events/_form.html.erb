@@ -21,6 +21,12 @@
   <p class="help-block">限小写英文数字及横线，将作为网址的一部分</p>
 </div>
 
+<div class="form-group">
+  <%= f.label :category_id %>
+  <!-- 如果你用 simple_form 而不是 Rails 内建的 form_for 来制作表单的话，是写  f.association :category  -->
+  <%= f.select :category_id, Category.all.map{|c| [c.name, c.id]}, {}, :class => "form-control" %>
+</div>
+
 <div class="btn-group" data-toggle="buttons">
   <% Event::STATUS.each do |status| %>
     <label class="btn btn-default <%= (status == f.object.status)? 'active' : '' %> ">
