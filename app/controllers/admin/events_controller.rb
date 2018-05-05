@@ -53,8 +53,16 @@ class Admin::EventsController < AdminController
     # 除非你额外检查 params[:id] 如果是 nil 就返回，但不如用 Array 来的精巧。
     Array(params[:ids]).each do |event_id|
       event = Event.find(event_id)
-      event.destroy
-      total += 1
+      if params[:commit] == I18n.t(:bulk_update)
+        event.status = params[:event_status]
+        event.save
+        total += 1
+      end
+
+      if params[:commit] == I18n.t(:bulk_delete)
+        event.destroy
+        total += 1
+      end
     end
     flash[:alert] = "成功完成 #{total} 笔"
     redirect_to admin_events_path
