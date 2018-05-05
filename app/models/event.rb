@@ -1,5 +1,6 @@
 class Event < ApplicationRecord
-  belongs_to :category, :optional => true 
+  belongs_to :category, :optional => true
+  has_many :tickets, dependent: :destroy 
 
   STATUS = ["draft", "public", "private"]
 
