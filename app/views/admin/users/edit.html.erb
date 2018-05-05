@@ -18,8 +18,7 @@
 
   <div class="form-group">
     <%= f.label :group_ids %>
-    <!-- 用 simple_form 而不是 Rails 内建的 form_for 来制作表单的话，写  f.association :groups, :as => :check_boxes  -->
-    <%= f.collection_check_boxes(:group_ids, Group.all, :id, :name) %>
+    <%= f.select :group_ids, Group.all.map{|g| [g.name, g.id]}, {}, :multiple => true, :class => "form-control" %>
   </div>
 
   <div class="form-group">
@@ -27,3 +26,7 @@
     <%= link_to "Cancel", admin_users_path %>
   </div>
 <% end %>
+
+<script>
+  $("#user_group_ids").select2();
+</script>
