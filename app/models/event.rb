@@ -1,6 +1,8 @@
 class Event < ApplicationRecord
   belongs_to :category, :optional => true
-  has_many :tickets, dependent: :destroy, :inverse_of => :event 
+  has_many :tickets, dependent: :destroy, :inverse_of => :event
+  include RankedModel
+  ranks :row_order  
 
   accepts_nested_attributes_for :tickets, :allow_destroy => true, :reject_if => :all_blank
 
