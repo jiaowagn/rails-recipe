@@ -38,7 +38,8 @@
 
 <div class="form-group">
   <%= f.label :description %>
-  <%= f.text_area :description, :class => "form-control" %>
+  <!-- 用 simple_form 的话，可以用 f.input :description, as: :ckeditor -->
+  <%= f.cktext_area :description, ckeditor: {toolbar: 'mini', language: "zh-CN"} %>
 </div>
 
 <%= f.nested_fields_for :tickets do |ff| %>
