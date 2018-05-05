@@ -8,7 +8,8 @@
 
   <div class="form-group">
     <%= f.label :birthday %>
-    <%= f.date_field :birthday, :class => "form-control" %>
+    <!-- 这种日期选择方式，浏览器都支持 -->
+    <%= f.date_select :birthday, :class => "form-control" %>
   </div>
 
   <div class="form-group">
