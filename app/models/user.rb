@@ -6,7 +6,8 @@ class User < ApplicationRecord
 
   has_many :memeberships
   has_many :groups, :through => :memeberships
-  has_one :profile 
+  has_one :profile
+  accepts_nested_attributes_for :profile 
 
   def display_name
     self.email.split("@").first
