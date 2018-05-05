@@ -47,10 +47,13 @@
       </div>
     </nav>
 
-    <div class="container">
-
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
+    <div class="container" style="padding-top: 60px">
+      <% if notice %>
+        <p class="notice alert-success"><%= notice %></p>
+      <% end %>
+      <% if alert %>
+        <p class="alert alert-danger"><%= alert %></p>
+      <% end %>
 
 
       <%= yield %>
