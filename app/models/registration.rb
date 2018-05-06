@@ -4,7 +4,7 @@ class Registration < ApplicationRecord
   belongs_to :ticket
 
   STATUS = ["pending", "confirmed"]
-  validates_inclusion_od :status, :in => STATUS
+  validates_inclusion_of :status, :in => STATUS
   validates_presence_of :status, :ticket_id
 
   before_validation :generate_uuid, :on => :create
