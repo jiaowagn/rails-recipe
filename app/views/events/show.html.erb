@@ -7,4 +7,11 @@
 <%= sanitize @event.description %>
 <%= t(@event.status, :scope => "event.status") %>
 <h2><%= @event.category.try(:name) %></h2>
+
+<% if @event.images.present? %>
+  <% @event.images.each do |i| %>
+    <%= link_to image_tag(i.url(:small)), i.url %>
+  <% end %>
+<% end %>
+
 <p><%= link_to "开始报名", new_event_registration_path(@event), :class => "btn btn-primary" %></p>
