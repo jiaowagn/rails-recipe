@@ -3,6 +3,11 @@
 <% end %>
 <h1><%= @event.name %></h1>
 
+<ul>
+  <% @event.attachments.each do |a| %>
+    <li><%= link_to a.description, a.attachment.url %></li>
+  <% end %>
+</ul>
 
 <%= sanitize @event.description %>
 <%= t(@event.status, :scope => "event.status") %>
