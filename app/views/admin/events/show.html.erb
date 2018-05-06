@@ -1,3 +1,10 @@
+<!-- Chartkick 这一套搭配 Rails 最简单，甚至不需要写 JavaScript 代码，有 Helper 可以使用
+Chart.js 这一套好用又漂亮，需要写 JavaScript
+D3.js 这一套功能最强，是专业的数据可视化套件，但也比较复杂 -->
+<!-- Chart.js 有 chart-js-rails gem 可以安装，但是因为只有后台报表那一页有用到，
+所以我们就不包进 asset pipeline 了，而是使用 CDN 让用户直接从 CDN 服务器下载回去 -->
+<script src="//cdn.bootcss.com/Chart.js/2.5.0/Chart.bundle.min.js"></script>
+
 <h1><%= @event.name %></h1>
 
 <p>
@@ -5,3 +12,44 @@
 </p>
 
 <%= sanitize @event.description %>
+
+<canvas id="myChart" width="400" height="200"></canvas>
+<script>
+  var ctx = document.getElementById("myChart");
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+</script>
