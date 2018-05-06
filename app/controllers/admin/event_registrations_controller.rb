@@ -2,7 +2,11 @@ class Admin::EventRegistrationsController < AdminController
   before_action :find_event
 
   def index
-    @registrations = @event.registrations.includes(:ticket).order("id DESC").page(params[:page])
+    # ransack 会用数据库的 LIKE 语法来做搜寻，虽然用起来方便，但它会逐笔检查资料是否符合，而不会使用数据库的索引。
+    # 如果数据量非常多有上万笔以上，搜寻效能就会不满足我们的需要。
+    # 这时候会改安装专门的全文搜寻引擎，例如 Elasticsearch，这是大数据等级的。
+    @q = @event.registrations.ransack(params[:q])
+    @registrations = @q.result.includes(:ticket).order("id DESC").page(params[:page])
     if params[:registration_id].present?
       @registrations = @registrations.where(:id => params[:registration_id].split(","))
     end
