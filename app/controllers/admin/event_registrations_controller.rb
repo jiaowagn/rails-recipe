@@ -3,6 +3,13 @@ class Admin::EventRegistrationsController < AdminController
 
   def index
     @registrations = @event.registrations.includes(:ticket).order("id DESC").page(params[:page])
+    if params[:status].present?
+      @registrations = @registrations.by_status(params[:status])
+    end
+
+    if params[:ticket_id].present?
+      @registrations = @registrations.by_ticket(params[:ticket_id])
+    end
   end
 
   def destroy
