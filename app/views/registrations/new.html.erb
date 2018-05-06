@@ -1,11 +1,4 @@
 <h1><%= @event.name %></h1>
 <%= form_for [@event, Registration.new] do |f| %>
-  <div class="form-group">
-    <%= f.label :ticket_id %>
-    <%= f.select :ticket_id, @event.tickets.map{|t| [t.name, t.id]}, {}, :class => "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.submit "Submit", :class => "btn btn-primary" %>
-  </div>
+  <%= render :partial => "step1_form", :locals => {:f => f} %>
 <% end %>
