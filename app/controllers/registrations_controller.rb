@@ -3,6 +3,7 @@ class RegistrationsController < ApplicationController
   before_action :authenticate_user!, expect: [:show]
 
   def new
+    @registration = @event.registrations.new
   end
 
   def create
