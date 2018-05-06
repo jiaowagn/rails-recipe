@@ -1,4 +1,12 @@
 <h1><%= @event.name %></h1>
+<% if @registration.errors[:base].any? %>
+  <ul>
+    <% @registration.errors[:base].each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+
 <%= form_for [@event, Registration.new] do |f| %>
   <%= render :partial => "step1_form", :locals => {:f => f} %>
 <% end %>
