@@ -31,3 +31,21 @@ D3.js 这一套功能最强，是专业的数据可视化套件，但也比较�
   });
 </script>
 <hr>
+
+<canvas id="myChart2" width="400" height="200"></canvas>
+<script>
+  var ctx2 = document.getElementById("myChart2");
+  var myChart2 = new Chart(ctx2, {
+    type: 'bar',
+    data: <%= raw @data2.to_json %>,
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+    }
+  });
+</script>

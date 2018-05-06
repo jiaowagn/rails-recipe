@@ -14,6 +14,7 @@ class Admin::EventsController < AdminController
              'rgba(255, 159, 64, 0.2)'
            ]
     ticket_names = @event.tickets.map{|t| t.name}
+    # @data1 变量就是要餵给 Chart.js 的分析资料，在 View 中需要把这个 Ruby 变量透过 to_json 转成 JavaScript 变量。
     @data1 = {
       labels: ticket_names,   #横轴的标签有哪些
       datasets: [{
@@ -21,6 +22,16 @@ class Admin::EventsController < AdminController
         data: @event.tickets.map{|t| t.registrations.count}, # 数据（这是数组）
         backgroundColor: colors,  #长条的颜色
         borderWidth: 1  #要有框线
+      }]
+    }
+
+    @data2 = {
+      labels: ticket_names,
+      datasets: [{
+        label: "# of Amount",
+        data: @event.tickets.map{|t| t.price * t.registrations.by_status("confirmed").count},
+        backgroundColor: colors,
+        borderWidth: 1
       }]
     }
   end
