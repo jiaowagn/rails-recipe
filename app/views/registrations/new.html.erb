@@ -5,20 +5,7 @@
     <%= f.select :ticket_id, @event.tickets.map{|t| [t.name, t.id]}, {}, :class => "form-control" %>
   </div>
 
-  <div class="form-group">
-    <%= f.label :name %>
-    <%= f.text_field :name, :class => "form-control" %>
-  </div>
 
-  <div class="form-group">
-    <%= f.label :email %>
-    <%= f.email_field :email, :class => "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :cellphone %>
-    <%= f.text_field :cellphone, :class => "form-control" %>
-  </div>
 
   <div class="form-group">
     <%= f.label :website %>
@@ -31,6 +18,6 @@
   </div>
 
   <div class="form-group">
-    <%= f.submit "Submit", :clas => "btn btn-primary" %>
+    <%= f.submit "Submit", :class => "btn btn-primary" %>
   </div>
 <% end %>
