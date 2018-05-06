@@ -1,32 +1,33 @@
 <h1><%= @event.name %></h1>
 <h2>Step2</h2>
 
+<% if @registration.errors.any? %>
+  <ul>
+    <% @registration.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+
 <%= form_for @registration, :url => update_step2_event_registration_path(@event, @registration) do |f| %>
   <!-- f.object 指的是这个 form_for 表单的 model 物件，也就是 @registration -->
   <!-- has-error 和 help-block 是 Bootstrap 提供的样式，这里配合使用 -->
-  <div class="form-group <%= (f.object.errors[:name].any?)? "has-error" : "" %>">
+  <div class="form-group">
     <%= f.label :name, "姓名", :class => "control-label" %>
     <%= f.text_field :name, :class => "form-control", :required => true, :autofocus => true %>
-
-    <% if f.object.errors[:name] %>
-      <span class="help-block"><%= safe_join(f.object.errors[:name], "、") %></span>
-    <% end %>
+    <div class="help-block with-errors"></div>
   </div>
 
-  <div class="form-group <%= (f.object.errors[:email].any?)? "has-error" : "" %>">
+  <div class="form-group">
     <%= f.label :email, "邮箱", :class => "control-label" %>
     <%= f.email_field :email, :class => "form-control", :required => true %>
-    <% if f.object.errors[:email] %>
-      <span class="help-block"><%= safe_join(f.object.errors[:email], "、") %></span>
-    <% end %>
+    <div class="help-block with-errors"></div>
   </div>
 
-  <div class="form-group <%= (f.object.errors[:cellphone].any?)? "has-error" : "" %> ">
+  <div class="form-group">
     <%= f.label :cellphone, "电话", :class => "control-label" %>
     <%= f.text_field :cellphone, :class => "form-control", :required => true %>
-    <% if f.object.errors[:cellphone] %>
-      <span class="help-block"><%= safe_join(f.object.errors[:cellphone], "、") %></span>
-    <% end %>
+    <div class="help-block with-errors"></div>
   </div>
 
   <div class="form-group">
@@ -34,3 +35,7 @@
     <%= f.submit "Save & Next", :class => "btn btn-primary" %>
   </div>
 <% end %>
+
+<script>
+  $("form").validator();
+</script>
