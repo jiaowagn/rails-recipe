@@ -6,6 +6,23 @@ class Admin::EventsController < AdminController
 
   def show
     @event = Event.find_by_friendly_id!(params[:id])
+    colors =['rgba(255, 99, 132, 0.2)',
+             'rgba(54, 162, 235, 0.2)',
+             'rgba(255, 206, 86, 0.2)',
+             'rgba(75, 192, 192, 0.2)',
+             'rgba(153, 102, 255, 0.2)',
+             'rgba(255, 159, 64, 0.2)'
+           ]
+    ticket_names = @event.tickets.map{|t| t.name}
+    @data1 = {
+      labels: ticket_names,   #横轴的标签有哪些
+      datasets: [{
+        label: "# of Registrations",  # 数据集的名称
+        data: @event.tickets.map{|t| t.registrations.count}, # 数据（这是数组）
+        backgroundColor: colors,  #长条的颜色
+        borderWidth: 1  #要有框线
+      }]
+    }
   end
 
   def new
