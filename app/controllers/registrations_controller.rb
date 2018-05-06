@@ -10,9 +10,10 @@ class RegistrationsController < ApplicationController
     @registration.user = current_user
     # 这里针对 ticket 额外用 @event.tickets.find 再检查确定这个票种属于这个活动
     @registration.ticket = @event.tickets.find(params[:registration][:ticket_id])
-    @registration.status = "confirmed"
+    @registration.status = "pending"
+    @registration.current_step = 1
     if @registration.save
-      redirect_to event_registration_path(@event, @registration)
+      redirect_to step2_event_registration_path(@event, @registration)
     else
       render 'new'
     end
@@ -28,6 +29,7 @@ class RegistrationsController < ApplicationController
 
   def step1_update
     @registration = @event.registrations.find_by_uuid(params[:id])
+    @registration.current_step = 1
     if @registration.update(registration_params)
       redirect_to step2_event_registration_path(@event, @registration)
     else
@@ -41,6 +43,7 @@ class RegistrationsController < ApplicationController
 
   def step2_update
     @registration = @event.registrations.find_by_uuid(params[:id])
+    @registration.current_step = 2
     if @registration.update(registration_params)
       redirect_to step3_event_registration_path(@event, @registration)
     else
@@ -54,6 +57,7 @@ class RegistrationsController < ApplicationController
 
   def step3_update
     @registration = @event.registrations.find_by_uuid(params[:id])
+    @registration.current_step = 3
     @registration.status = "confirmed"
     if @registration.update(registration_params)
       flash[:notice] = "报名成功"
