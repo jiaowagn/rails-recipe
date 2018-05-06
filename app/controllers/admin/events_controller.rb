@@ -14,15 +14,18 @@ class Admin::EventsController < AdminController
              'rgba(255, 159, 64, 0.2)'
            ]
     ticket_names = @event.tickets.map{|t| t.name}
+    status_colors = {"confirmed" => "#FF6384", "pending" => "#36A2EB"}
     # @data1 变量就是要餵给 Chart.js 的分析资料，在 View 中需要把这个 Ruby 变量透过 to_json 转成 JavaScript 变量。
     @data1 = {
       labels: ticket_names,   #横轴的标签有哪些
-      datasets: [{
-        label: "# of Registrations",  # 数据集的名称
-        data: @event.tickets.map{|t| t.registrations.count}, # 数据（这是数组）
-        backgroundColor: colors,  #长条的颜色
+      datasets: Registration::STATUS.map do |s|
+        {
+        label: I18n.t(s, :scope => "registration.status"), # 数据集的名称
+        data: @event.tickets.map{|t| t.registrations.by_status(s).count }, # 数据（这是数组）
+        backgroundColor: status_colors[s],  #长条的颜色
         borderWidth: 1  #要有框线
-      }]
+        }
+      end
     }
 
     @data2 = {
