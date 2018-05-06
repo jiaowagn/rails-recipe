@@ -3,13 +3,21 @@ class Admin::EventRegistrationsController < AdminController
 
   def index
     @registrations = @event.registrations.includes(:ticket).order("id DESC").page(params[:page])
+    if params[:start_on].present?
+      @registrations = @registrations.where("created_at >= ?", Date.parse(params[:start_on]).beginning_of_day )
+    end
+
+    if params[:end_on].present?
+      @registrations = @registrations.where("created_at <= ?", Date.parse(params[:end_on]).end_of_day )
+    end
+
     if Array(params[:statuses]).any?
       @registrations = @registrations.by_status(params[:statuses])
     end
 
     if Array(params[:ticket_ids]).any?
       @registrations = @registrations.by_ticket(params[:ticket_ids])
-    end 
+    end
 
     if params[:status].present?
       @registrations = @registrations.by_status(params[:status])
