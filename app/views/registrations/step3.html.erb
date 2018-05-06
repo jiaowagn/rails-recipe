@@ -1,5 +1,14 @@
 <h1><%= @event.name %></h1>
 <h2>Step3</h2>
+
+<% if @registration.errors.any? %>
+  <ul>
+    <% @registrations.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+
 <%= form_for @registration, :url => update_step3_event_registration_path(@event, @registration) do |f| %>
   <div class="form-group">
     <%= f.label :website %>
