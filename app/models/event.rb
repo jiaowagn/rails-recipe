@@ -1,4 +1,5 @@
 class Event < ApplicationRecord
+  mount_uploader :logo, EventLogoUploader
   belongs_to :category, :optional => true
   has_many :tickets, dependent: :destroy, :inverse_of => :event
   has_many :registrations, :dependent => :destroy
