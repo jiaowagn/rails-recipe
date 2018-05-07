@@ -10,6 +10,8 @@ class User < ApplicationRecord
   has_many :registrations
   accepts_nested_attributes_for :profile
 
+  ROLES = ['admin', 'editor']
+
   def display_name
     self.email.split("@").first
   end
