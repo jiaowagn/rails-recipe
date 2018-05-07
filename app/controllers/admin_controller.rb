@@ -5,6 +5,7 @@ class AdminController < ApplicationController
 
   layout "admin"
 
+  # 如果权限检查比较复杂，可以使用专门的 gem，比如 Pundit，Cancancan
   protected
     def require_editor!
       unless current_user.is_editor?
