@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  require 'sidekiq/web'
+  authenticate :user, lambda {|u| u.is_admin?} do
+    mount Sidekiq::Web => '/sidekiq'
+  end
 
   devise_for :users
 
