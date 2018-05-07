@@ -3,6 +3,8 @@ class Registration < ApplicationRecord
   belongs_to :event
   belongs_to :ticket
 
+  has_paper_trail
+
   STATUS = ["pending", "confirmed"]
   validates_inclusion_of :status, :in => STATUS
   validates_presence_of :status, :ticket_id
