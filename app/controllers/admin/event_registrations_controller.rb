@@ -1,6 +1,7 @@
 require 'csv'
 
 class Admin::EventRegistrationsController < AdminController
+  before_action :require_editor!
   before_action :find_event
 
   def index
@@ -51,7 +52,7 @@ class Admin::EventRegistrationsController < AdminController
         end
         send_data csv_string, :filename => "#{@event.friendly_id}-registrations-#{Time.now.to_s(:number)}.csv"
       }
-      format.xlsx 
+      format.xlsx
     end
   end
 
