@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
 
   before_action :set_locale
   before_action :set_timezone
+  before_action :set_paper_trail_whodunnit
 
   def set_locale
     if params[:locale] && I18n.available_locales.include?(params[:locale].to_sym)
