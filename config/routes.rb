@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   namespace :admin do
     root "events#index"
     resources :events do
+      resources :registration_imports
       resources :tickets, :controller => "event_tickets"
       resources :registrations, :controller => "event_registrations" do
         collection do
