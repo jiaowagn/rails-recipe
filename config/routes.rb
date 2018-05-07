@@ -19,7 +19,11 @@ Rails.application.routes.draw do
     root "events#index"
     resources :events do
       resources :tickets, :controller => "event_tickets"
-      resources :registrations, :controller => "event_registrations"
+      resources :registrations, :controller => "event_registrations" do
+        collection do
+          post :import
+        end
+      end
       member do
         post :reorder
       end
